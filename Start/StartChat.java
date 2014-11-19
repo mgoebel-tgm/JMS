@@ -13,6 +13,7 @@ public class StartChat {
 			InputStreamReader in = new InputStreamReader(System.in);
 			BufferedReader r = new BufferedReader(in);
 			String input = "";
+			String[] inputSplit;
 			System.out.println("Hello! \n if you need help enter --help");
 			while(true){
 				try {
@@ -20,9 +21,9 @@ public class StartChat {
 				} catch (IOException e1) {
 					System.out.println("Error: IO");
 				}
-
-				switch(input){
-				case "--help":
+				inputSplit = input.split(" ");
+				switch(inputSplit[0]){
+				case "help":
 					System.out.println("chat <ip-address> <username> <chatroom> \n"
 									 + "mail <ip-address> <nachricht> \n"
 									 + "mailbox"
@@ -30,7 +31,7 @@ public class StartChat {
 					break;
 
 				case "mail":
-					System.out.println("NO email");
+					System.out.println("No email");
 					//TODO: Tobi Mail implementieren
 					break;
 				case "chat":
@@ -42,7 +43,7 @@ public class StartChat {
 					//TODO:Tobi Mailbox implementieren
 				    break;
 				case "exit":
-					System.out.println("Bye.");
+					System.out.println("Bye!");
 					System.exit(0);
 				}
 			}
