@@ -27,9 +27,7 @@ public class StartChat {
 		BufferedReader r = Start();
 		while(true){
 			String message = readInput(r);
-			System.out.println(chat);
 			if(chat == true){
-				chatObj.sendTopicMessage(username + " is online!");
 				ChatMenu(message);
 			}else
 				Menu(message);
@@ -90,6 +88,7 @@ public class StartChat {
 				chatObj = new Chat(username, messageSplit[1], connection);
 				chatObj.createTopic();
 				chat = true;
+				chatObj.sendTopicMessage(username + " is online!");
 			}else{
 				System.err.println("Topic mit eingeben! chat <topic>");
 			}
