@@ -20,11 +20,16 @@ public class StartChat {
 	private static Connection connection;
 	private static Chat chatObj;
 	private static Mail mailObj;
+	private static boolean chat;
 
 	public static void main (String[] args){
 		BufferedReader r = Start();
 		while(true){
-			Menu(r);
+			String message = readInput(r);
+			if(chat == true)
+				ChatMenu(message);
+			else
+				Menu(message);
 		}
 	}
 	
@@ -37,9 +42,9 @@ public class StartChat {
 			boolean validIP = false;
 			boolean validName = false;
 			while(validIP == false || validName == false){
-				System.out.print("IP Address: ");
+				System.out.print("IP Address of ActiveMQ: ");
 				ip = r.readLine();
-				validIP = CheckArguments.checkIP(ip);
+				validIP = CheckArguments.checkIPFormat(ip);
 				System.out.print("Username: ");
 				username = r.readLine();
 				validName = CheckArguments.checkUsername(username);
@@ -49,21 +54,25 @@ public class StartChat {
 			System.err.println("Something is wrong with input/output while giving username and ip-address");
 		}
 		connect(username,ip);
-		System.out.println("Hello "+username+"! \n if you need help enter help");
+		System.out.println("Hello "+username+" your IP is "+CheckArguments.getIP()+"! \n if you need help enter help");
 		String[] inputSplit;
 		return r;
 	}
-	
-	public static void Menu(BufferedReader r){
+	public static String readInput(BufferedReader r){
 		String input = " ";
 		String[] inputSplit;
 		try {
 			input = r.readLine();
+			Menu(input);
 		} catch (IOException e1) {
 			System.out.println("Something is wrong with input/output !");
 		}
-		inputSplit = input.split(" ");
-		switch(inputSplit[0]){
+		return input;
+		
+	}
+	public static void Menu(String message){
+		String[] messageSplit = message.split(" ");
+		switch(message){
 		case "help":
 			System.out.println("chat <ip-address> <username> <chatroom> \n"
 					+ "mail <ip-address> <nachricht> \n"
@@ -75,9 +84,10 @@ public class StartChat {
 			//TODO: Tobi Mail implementieren
 			break;
 		case "chat":
-			if(inputSplit.length == 2){
-				chatObj = new Chat(username, inputSplit[1], connection);
+			if(messageSplit.length == 2){
+				chatObj = new Chat(username, messageSplit[1], connection);
 				chatObj.createTopic();
+				chat = true;
 			}else{
 				System.err.println("Topic mit eingeben! chat <topic>");
 			}
@@ -92,9 +102,26 @@ public class StartChat {
 			System.exit(0);
 		}
 	}
+	public static void ChatMenu(String message){
+		switch(message){
+		case "/exit":
+			chat = false;
+			break;
+		case "/mail":
+			System.out.println("No mail");
+			//TODO Mail implementieren
+			break;
+		case "/mailbox":
+			System.out.println("No mail");
+			//TODO Mail implementieren
+			break;
+		default:
+			chatObj.sendTopicMessage(message);
+		
+		}
+	}
 
 	public static Connection connect(String user, String ip){
-		System.out.println(ip);
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER, ActiveMQConnection.DEFAULT_PASSWORD,"failover://tcp://" + ip + ":61616");
 		connection = null;
 
