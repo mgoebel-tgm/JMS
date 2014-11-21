@@ -26,9 +26,10 @@ public class StartChat {
 		BufferedReader r = Start();
 		while(true){
 			String message = readInput(r);
-			if(chat == true)
+			if(chat == true){
+				chatObj.sendTopicMessage(username + " is online!");
 				ChatMenu(message);
-			else
+			}else
 				Menu(message);
 		}
 	}
@@ -106,6 +107,8 @@ public class StartChat {
 		switch(message){
 		case "/exit":
 			chat = false;
+			chatObj.sendTopicMessage(username + " is offline!");
+			chatObj.stopChat();
 			break;
 		case "/mail":
 			System.out.println("No mail");
@@ -117,7 +120,6 @@ public class StartChat {
 			break;
 		default:
 			chatObj.sendTopicMessage(message);
-		
 		}
 	}
 
