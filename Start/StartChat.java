@@ -74,9 +74,9 @@ public class StartChat {
 		String[] messageSplit = message.split(" ");
 		switch(messageSplit[0]){
 		case "help":
-			System.out.println("chat <ip-address> <username> <chatroom> \n"
+			System.out.println("Commands: \nchat <ip-address> <username> <chatroom> \n"
 					+ "mail <ip-address> <nachricht> \n"
-					+ "mailbox"
+					+ "mailbox \n"
 					+ "exit");
 			break;
 		case "mail":
@@ -92,7 +92,6 @@ public class StartChat {
 			}else{
 				System.err.println("Topic mit eingeben! chat <topic>");
 			}
-			//TODO: Melly Chat implementieren
 			break;
 		case "mailbox":
 			System.out.println("No mailbox");
@@ -118,13 +117,16 @@ public class StartChat {
 			System.out.println("No mail");
 			//TODO Mail implementieren
 			break;
+		case "/help":
+			System.out.println("Commands: \n /mail \n /mailbox \n /exit");
+			break;
 		default:
 			chatObj.sendTopicMessage(message);
 		}
 	}
 
 	public static Connection connect(String user, String ip){
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER, ActiveMQConnection.DEFAULT_PASSWORD,"failover://tcp://" + ip + ":61616");
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(username, ActiveMQConnection.DEFAULT_PASSWORD,"failover://tcp://" + ip + ":61616");
 		connection = null;
 
 		try {

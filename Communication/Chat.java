@@ -1,6 +1,8 @@
 package Communication;
 
 import javax.jms.*;
+
+import Start.CheckArguments;
 /**
  * Kommunikation mit einen Chat zur Verfuegung stellen
  * @author Melanie Goebel
@@ -10,6 +12,7 @@ public class Chat implements MessageListener {
 	private String username;
 	private String subject;
 	private Connection connection;
+	private String ip;
 
 	private Session session = null;
 	private MessageConsumer consumer = null;
@@ -26,6 +29,7 @@ public class Chat implements MessageListener {
 		this.username = username;
 		this.subject = subject;
 		this.connection = connection;
+		this.ip = CheckArguments.getIP();
 	}
 	/**
 	 * Erstellen einer Topic
@@ -64,7 +68,7 @@ public class Chat implements MessageListener {
 	public void sendTopicMessage(String m) {
 		try {
 			TextMessage message = session.createTextMessage(username + " [ "
-					+ "ip" + " ]: " + m);// Format der Nachricht erstellen
+					+ ip + " ]: " + m);// Format der Nachricht erstellen
 			producer.send(message); // Nachricht senden
 
 		} catch (Exception e) {
