@@ -23,9 +23,11 @@ public class StartChat {
 	private static boolean chat;
 
 	public static void main (String[] args){
+		chat = false;
 		BufferedReader r = Start();
 		while(true){
 			String message = readInput(r);
+			System.out.println(chat);
 			if(chat == true){
 				chatObj.sendTopicMessage(username + " is online!");
 				ChatMenu(message);
@@ -64,7 +66,6 @@ public class StartChat {
 		String[] inputSplit;
 		try {
 			input = r.readLine();
-			Menu(input);
 		} catch (IOException e1) {
 			System.out.println("Something is wrong with input/output !");
 		}
@@ -73,7 +74,7 @@ public class StartChat {
 	}
 	public static void Menu(String message){
 		String[] messageSplit = message.split(" ");
-		switch(message){
+		switch(messageSplit[0]){
 		case "help":
 			System.out.println("chat <ip-address> <username> <chatroom> \n"
 					+ "mail <ip-address> <nachricht> \n"
