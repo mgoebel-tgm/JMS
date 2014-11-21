@@ -26,10 +26,13 @@ public class StartChat {
 		chat = false;
 		BufferedReader r = Start();
 		while(true){
-			String message = readInput(r);
+			String message;
 			if(chat == true){
+				System.out.print(username+" ["+CheckArguments.getIP()+"]: ");
+				message = readInput(r);
 				ChatMenu(message);
 			}else
+				message = readInput(r);
 				Menu(message);
 		}
 	}
