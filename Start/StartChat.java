@@ -11,7 +11,7 @@ import Communication.Chat;
 
 /**
  * Starten eines Chats und das Parameterhandling
- * @author Melanie Goebel
+ * @author Melanie Goebel, Tobias Perny
  * @version 2014-11-14
  */
 public class StartChat {
