@@ -17,7 +17,7 @@ public class CheckArguments {
 	 * @return ob es gueltig ist
 	 */
 	public static boolean checkUsername(String name){
-		String USERNAME_PATTERN= "^[a-z0-9_-]{3,15}$";
+		String USERNAME_PATTERN= "^[a-z A-Z 0-9_-]{3,15}$";
 		if(name.matches(USERNAME_PATTERN))
 			return true;
 		System.err.println("Not a valid username, it need to have 3-15 characters (include numbers, underline, minus)");
