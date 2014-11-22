@@ -84,7 +84,7 @@ public class StartChat {
 			break;
 		case "mail":
 			System.out.println("No email");
-			//TODO: Tobi Mail implementieren
+			//moeglicherweise noch was
 			break;
 		case "chat":
 			if(messageSplit.length == 2){
@@ -97,8 +97,9 @@ public class StartChat {
 			}
 			break;
 		case "mailbox":
-			System.out.println("No mailbox");
-			//TODO:Tobi Mailbox implementieren
+			mailObj = new Mail(username, connection);
+			mailObj.startMailbox();
+			//moeglicherweise noch was
 			break;
 		case "exit":
 			System.out.println("Bye!");
