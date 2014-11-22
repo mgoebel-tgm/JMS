@@ -52,9 +52,7 @@ public class Chat implements MessageListener {
 		TextMessage m = (TextMessage) message; // neue Nachricht erstellen
 		if (message != null) {
 			try {
-				if (!(m.getText().split(" ", 2)[0].equals(username))) {//Wenn es nicht meine eigene Nachricht ist
 					System.out.println(m.getText());
-				}
 			} catch (JMSException e) {
 				System.err.println("Something went wrong, dunno what.");
 			}

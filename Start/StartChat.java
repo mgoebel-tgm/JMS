@@ -112,6 +112,7 @@ public class StartChat {
 			chat = false;
 			chatObj.sendTopicMessage(username + " is offline!");
 			chatObj.stopChat();
+			System.out.println("You leave the chat.");
 			break;
 		case "/mail":
 			System.out.println("No mail");
