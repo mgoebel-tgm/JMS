@@ -83,8 +83,7 @@ public class StartChat {
 					+ "exit");
 			break;
 		case "mail":
-			System.out.println("No email");
-			//moeglicherweise noch was
+			mailObj.writeMail(messageSplit[1], messageSplit[2]);
 			break;
 		case "chat":
 			if(messageSplit.length == 2){
@@ -97,9 +96,7 @@ public class StartChat {
 			}
 			break;
 		case "mailbox":
-			mailObj = new Mail(username, connection);
-			mailObj.startMailbox();
-			//moeglicherweise noch was
+			mailObj.readMails();
 			break;
 		case "exit":
 			System.out.println("Bye!");

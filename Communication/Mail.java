@@ -16,19 +16,18 @@ public class Mail implements MessageListener{
 	private Session session;
 	private Destination destination;
 	private MessageConsumer consumer;
-	private Vector<String> m_emailMessage;
+	private Vector<String> emailMessage;
 
 	public Mail(String user, Connection connection){
 		this.user = user;
 		this.connection = connection;
+		this.emailMessage = new Vector<String>();
 
 	}
 	public void startMailbox(){
 		try {
 			session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
-
 			destination = session.createQueue(CheckArguments.getIP());
-
 			consumer = session.createConsumer(destination);
 		} catch (JMSException e) {
 			System.err.println("hehehe you did something wrong");
@@ -45,17 +44,36 @@ public class Mail implements MessageListener{
 			}
 
 			//keine neue Nachricht
-			if (m_emailMessage.size() == 0)
+			if (emailMessage.size() == 0)
 				System.out.println("No new messages..");
 
 			//alle Nachrichten werden angezeigt
-			for (int i = 0; i < m_emailMessage.size(); i++)
-				System.out.println(m_emailMessage.elementAt(i));
+			for (int i = 0; i < emailMessage.size(); i++)
+				System.out.println(emailMessage.elementAt(i));
 
-			m_emailMessage.clear();
+			emailMessage.clear();
 			consumer.setMessageListener(null);
 
 		} catch (JMSException e) {
+			System.err.println("hehehe you did something wrong");
+		}
+	}
+	public void writeMail(String ip, String message) {
+		try {
+			//ziel wird festgelegt
+			Destination dest = session.createQueue(ip);
+			//produzent wird erstellt
+			MessageProducer producer = session.createProducer(dest);
+			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			//textnachricht wird erstellt
+			TextMessage msg = session.createTextMessage(user + "[" + CheckArguments.getIP() + "]: " + message);
+			//nachricht wird gesendet
+			producer.send(msg);
+			//produzent wird geschlossen
+			producer.close();
+			
+		} catch (JMSException e) {
+			System.err.println("hehehe you did something wrong");
 		}
 	}
 	@Override
@@ -65,7 +83,7 @@ public class Mail implements MessageListener{
 			TextMessage message = (TextMessage) msg;
 
 			//text wird zu vector hinzugefuegt
-			m_emailMessage.add(message.getText());
+			emailMessage.add(message.getText());
 
 		} catch (JMSException e) {
 		}
