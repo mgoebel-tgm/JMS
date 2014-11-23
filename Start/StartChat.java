@@ -120,6 +120,11 @@ public class StartChat {
 			chatObj.sendTopicMessage("//"+username + " is offline!");
 			chatObj.stopChat();
 			System.out.println("You leave the chat.");
+			try {
+				connection.start();
+			} catch (JMSException e) {
+				System.err.println("You could not leave the chat properly... haha");
+			}
 			break;
 		case "/mail":
 			if(messageSplit.length >= 3 && CheckArguments.checkIPFormat(messageSplit[1]) == true){
