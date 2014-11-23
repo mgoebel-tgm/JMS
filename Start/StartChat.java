@@ -88,6 +88,8 @@ public class StartChat {
 					nachricht += messageSplit[i] + " ";
 				}
 				mailObj.writeMail(messageSplit[1], nachricht);
+			}else{
+				System.err.println("Wrong IP-Adress or Message");
 			}
 			break;
 		case "chat":
