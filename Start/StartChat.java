@@ -123,7 +123,7 @@ public class StartChat {
 			try {
 				connection.start();
 			} catch (JMSException e) {
-				System.err.println("You could not leave the chat properly... haha");
+				System.err.println("You could not leave the chat properly.");
 			}
 			break;
 		case "/mail":

@@ -52,7 +52,7 @@ public class Mail implements MessageListener{
 
 			//keine neue Nachricht
 			if (emailMessage.size() == 0)
-				System.out.println("No new messages..");
+				System.out.println("No new messages.");
 
 			//alle Nachrichten werden angezeigt
 			for (int i = 0; i < emailMessage.size(); i++)
@@ -62,7 +62,7 @@ public class Mail implements MessageListener{
 			consumer.setMessageListener(null);
 
 		} catch (JMSException e) {
-			System.err.println("hehehe you did something wrong");
+			System.err.println("Failed to check mails.");
 		}
 	}
 	/**
@@ -85,7 +85,7 @@ public class Mail implements MessageListener{
 			producer.close();
 			
 		} catch (JMSException e) {
-			System.err.println("hehehe you did something wrong");
+			System.err.println("Failed to write mail");
 		}
 	}
 
@@ -99,6 +99,7 @@ public class Mail implements MessageListener{
 			emailMessage.add(message.getText());
 
 		} catch (JMSException e) {
+			System.err.println("Failed to send mail");
 		}
 	}
 }
