@@ -7,6 +7,7 @@ import javax.jms.*;
 import Start.CheckArguments;
 
 /**
+ * Es wird eine Email Funktion fuer einen Chat implementiert
  * @author Tobi
  *
  */
@@ -24,6 +25,9 @@ public class Mail implements MessageListener{
 		this.emailMessage = new Vector<String>();
 
 	}
+	/**
+	 * Die mailbox wird gestartet
+	 */
 	public void startMailbox(){
 		try {
 			session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
@@ -33,6 +37,9 @@ public class Mail implements MessageListener{
 			System.err.println("hehehe you did something wrong");
 		}
 	}
+	/**
+	 * Es wird eine Funktion zur verfuegung gestellt um Mails lesen zu koennen
+	 */
 	public void readMails() {
 		try {
 			consumer.setMessageListener(this);
@@ -58,6 +65,11 @@ public class Mail implements MessageListener{
 			System.err.println("hehehe you did something wrong");
 		}
 	}
+	/**
+	 * Eine Email wird geschrieben
+	 * @param ip	Die IP-Adresse des Empfaengers
+	 * @param message	Die Nachricht die gesendet wird
+	 */
 	public void writeMail(String ip, String message) {
 		try {
 			//ziel wird festgelegt
@@ -76,6 +88,7 @@ public class Mail implements MessageListener{
 			System.err.println("hehehe you did something wrong");
 		}
 	}
+
 	@Override
 	public void onMessage(Message msg) {
 		try {
