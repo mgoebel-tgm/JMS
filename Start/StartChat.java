@@ -27,9 +27,10 @@ public class StartChat {
 			if(chat == true){
 				message = readInput(r);
 				ChatMenu(message);
-			}else
+			}else{
 				message = readInput(r);
-			Menu(message);
+				Menu(message);
+			}
 		}
 	}
 
@@ -80,7 +81,7 @@ public class StartChat {
 					+ " exit \n _______________________________________");
 			break;
 		case "mail":
-			if(messageSplit.length < 3 && CheckArguments.checkIPFormat(messageSplit[1]) == true){
+			if(messageSplit.length >= 3 && CheckArguments.checkIPFormat(messageSplit[1]) == true){
 				String nachricht = "";
 				for (int i = 2; i < messageSplit.length; i++) {
 					nachricht += messageSplit[i] + " ";
@@ -109,7 +110,8 @@ public class StartChat {
 		}
 	}
 	public static void ChatMenu(String message){
-		switch(message){
+		String[] messageSplit = message.split(" ");
+		switch(messageSplit[0]){
 		case "/exit":
 			chat = false;
 			chatObj.sendTopicMessage("//"+username + " is offline!");
@@ -117,12 +119,18 @@ public class StartChat {
 			System.out.println("You leave the chat.");
 			break;
 		case "/mail":
-			System.out.println("No mail");
-			//TODO Mail implementieren
+			if(messageSplit.length >= 3 && CheckArguments.checkIPFormat(messageSplit[1]) == true){
+				String nachricht = "";
+				for (int i = 2; i < messageSplit.length; i++) {
+					nachricht += messageSplit[i] + " ";
+				}
+				mailObj.writeMail(messageSplit[1], nachricht);
+			}else{
+				System.err.println("Wrong IP-Adress or Message");
+			}
 			break;
 		case "/mailbox":
-			System.out.println("No mail");
-			//TODO Mail implementieren
+			mailObj.readMails();
 			break;
 		case "/help":
 			System.out.println(" _________\n \n Commands: \n  /mail \n /mailbox \n /exit \n _________");
