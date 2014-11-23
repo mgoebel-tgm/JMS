@@ -76,10 +76,11 @@ public class StartChat {
 		String[] messageSplit = message.split(" ");
 		switch(messageSplit[0]){
 		case "help":
-			System.out.println("Commands: \nchat <ip-address> <username> <chatroom> \n"
-					+ "mail <ip-address> <nachricht> \n"
-					+ "mailbox \n"
-					+ "exit");
+			System.out.println(" _______________________________________\n\n Commands:\n"
+					+ " chat <chatroom> \n"
+					+ " mail <ip-address> <nachricht> \n"
+					+ " mailbox \n"
+					+ " exit \n _______________________________________");
 			break;
 		case "mail":
 			if(messageSplit.length < 3 && CheckArguments.checkIPFormat(messageSplit[1]) == true){
@@ -127,7 +128,7 @@ public class StartChat {
 			//TODO Mail implementieren
 			break;
 		case "/help":
-			System.out.println("Commands: \n /mail \n /mailbox \n /exit");
+			System.out.println(" _________\n \n Commands: \n  /mail \n /mailbox \n /exit \n _________");
 			break;
 		default:
 			chatObj.sendTopicMessage(message);
