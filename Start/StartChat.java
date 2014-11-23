@@ -33,10 +33,10 @@ public class StartChat {
 				ChatMenu(message);
 			}else
 				message = readInput(r);
-				Menu(message);
+			Menu(message);
 		}
 	}
-	
+
 	public static BufferedReader Start(){
 		InputStreamReader in = new InputStreamReader(System.in);
 		BufferedReader r = new BufferedReader(in);
@@ -71,7 +71,7 @@ public class StartChat {
 			System.out.println("Something is wrong with input/output !");
 		}
 		return input;
-		
+
 	}
 	public static void Menu(String message){
 		String[] messageSplit = message.split(" ");
@@ -83,11 +83,13 @@ public class StartChat {
 					+ "exit");
 			break;
 		case "mail":
-			String nachricht = "";
-			for (int i = 2; i < messageSplit.length; i++) {
-				nachricht += messageSplit[i] + " ";
+			if(messageSplit.length < 3 && CheckArguments.checkIPFormat(messageSplit[1]) == true){
+				String nachricht = "";
+				for (int i = 2; i < messageSplit.length; i++) {
+					nachricht += messageSplit[i] + " ";
+				}
+				mailObj.writeMail(messageSplit[1], nachricht);
 			}
-			mailObj.writeMail(messageSplit[1], nachricht);
 			break;
 		case "chat":
 			if(messageSplit.length == 2){
