@@ -52,9 +52,9 @@ public class Chat implements MessageListener {
 		TextMessage m = (TextMessage) message; // neue Nachricht erstellen
 		if (message != null) {
 			try {
-					System.out.println(m.getText());
+				System.out.println(m.getText());
 			} catch (JMSException e) {
-				System.err.println("Something went wrong, dunno what.");
+				System.err.println("Something went wrong with the message.");
 			}
 		}
 	}
@@ -65,8 +65,13 @@ public class Chat implements MessageListener {
 	 */
 	public void sendTopicMessage(String m) {
 		try {
-			TextMessage message = session.createTextMessage(username + " [ "
-					+ ip + " ]: " + m);// Format der Nachricht erstellen
+			TextMessage message = null;
+			if(m.matches("^//[a-z A-Z 0-9_-]{3,15} (is online!|is offline!)$")){
+				message = session.createTextMessage(m);
+			}else{
+				message = session.createTextMessage(username + " [ "
+						+ ip + " ]: " + m);// Format der Nachricht erstellen
+			}
 			producer.send(message); // Nachricht senden
 
 		} catch (Exception e) {

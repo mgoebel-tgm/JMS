@@ -28,7 +28,6 @@ public class StartChat {
 		while(true){
 			String message;
 			if(chat == true){
-				System.out.print(username+" ["+CheckArguments.getIP()+"]: ");
 				message = readInput(r);
 				ChatMenu(message);
 			}else
@@ -96,7 +95,7 @@ public class StartChat {
 				chatObj = new Chat(username, messageSplit[1], connection);
 				chatObj.createTopic();
 				chat = true;
-				chatObj.sendTopicMessage(username + " is online!");
+				chatObj.sendTopicMessage("//"+ username + " is online!");
 			}else{
 				System.err.println("Topic mit eingeben! chat <topic>");
 			}
@@ -113,7 +112,7 @@ public class StartChat {
 		switch(message){
 		case "/exit":
 			chat = false;
-			chatObj.sendTopicMessage(username + " is offline!");
+			chatObj.sendTopicMessage("//"+username + " is offline!");
 			chatObj.stopChat();
 			System.out.println("You leave the chat.");
 			break;
