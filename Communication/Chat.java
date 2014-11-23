@@ -84,10 +84,16 @@ public class Chat implements MessageListener {
 	public void stopChat() {
 		try {
 			connection.stop();
-			session.close();
-			connection.close();
 		} catch (Exception e) {
 			System.err.println("Failed to stop Chat!");
+		}
+	}
+	public void closeChat(){
+		try {
+		session.close();
+		connection.close();
+		} catch (Exception e) {
+			System.err.println("Failed to close Chat!");
 		}
 	}
 }

@@ -1,10 +1,12 @@
 package Start;
 
 import java.io.*;
+
 import org.apache.activemq.*;
+
 import javax.jms.*;
+
 import Communication.*;
-import Communication.Chat;
 
 /**
  * Starten eines Chats und das Parameterhandling
@@ -106,6 +108,7 @@ public class StartChat {
 			break;
 		case "exit":
 			System.out.println("Bye!");
+			chatObj.closeChat();
 			System.exit(0);
 		}
 	}
