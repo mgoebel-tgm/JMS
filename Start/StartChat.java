@@ -83,7 +83,11 @@ public class StartChat {
 					+ "exit");
 			break;
 		case "mail":
-			mailObj.writeMail(messageSplit[1], messageSplit[2]);
+			String nachricht = "";
+			for (int i = 2; i < messageSplit.length; i++) {
+				nachricht += messageSplit[i] + " ";
+			}
+			mailObj.writeMail(messageSplit[1], nachricht);
 			break;
 		case "chat":
 			if(messageSplit.length == 2){
